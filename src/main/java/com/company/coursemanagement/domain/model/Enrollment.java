@@ -2,6 +2,8 @@ package com.company.coursemanagement.domain.model;
 
 import java.time.LocalDate;
 
+import com.company.coursemanagement.domain.enums.EnrollmentStatus;
+
 public class Enrollment {
     private Long id;
     private Long studentId;

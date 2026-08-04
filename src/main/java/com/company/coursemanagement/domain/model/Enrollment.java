@@ -2,8 +2,6 @@ package com.company.coursemanagement.domain.model;
 
 import java.time.LocalDate;
 
-import com.company.coursemanagement.domain.enums.EnrollmentStatus;
-
 public class Enrollment {
     private Long id;
     private Long studentId;
@@ -58,7 +56,10 @@ public class Enrollment {
         return status;
     }
 
-    public void setStatus(EnrollmentStatus status) {
+    public void setStatus() {
         this.status = status;
+    }
+
+    public void setStatus(EnrollmentStatus enrollmentStatus) {
     }
 }

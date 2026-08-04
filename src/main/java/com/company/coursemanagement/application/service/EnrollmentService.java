@@ -1,6 +1,7 @@
 package com.company.coursemanagement.application.service;
 
 import com.company.coursemanagement.application.dto.EnrollmentDTO;
+import com.company.coursemanagement.domain.model.EnrollmentStatus;
 import com.company.coursemanagement.domain.exception.BusinessException;
 import com.company.coursemanagement.domain.exception.EnrollmentNotFoundException;
 import com.company.coursemanagement.domain.exception.StudentNotFoundException;

@@ -1,4 +1,4 @@
-package com.company.coursemanagement.domain.enums;
+package com.company.coursemanagement.domain.model;
 
 public enum EnrollmentStatus {
     ACTIVE,

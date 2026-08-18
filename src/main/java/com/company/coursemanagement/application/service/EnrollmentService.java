@@ -8,7 +8,7 @@ import com.company.coursemanagement.domain.exception.StudentNotFoundException;
 import com.company.coursemanagement.domain.model.Enrollment;
 import com.company.coursemanagement.domain.model.EnrollmentStatus;
 import com.company.coursemanagement.domain.repository.CourseRepository;
-import com.company.coursemanagement.domain.repository.EnrollmentRepository;
+import com.company.coursemanagement.repository.InMemoryEnrollmentRepository;
 import com.company.coursemanagement.domain.repository.StudentRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +18,12 @@ import java.util.List;
 @Service
 public class EnrollmentService {
 
-    private final EnrollmentRepository enrollmentRepository;
+    private final InMemoryEnrollmentRepository enrollmentRepository;
     private final StudentRepository studentRepository;
     private final CourseRepository courseRepository;
 
     public EnrollmentService(
-            EnrollmentRepository enrollmentRepository,
+            InMemoryEnrollmentRepository enrollmentRepository,
             StudentRepository studentRepository,
             CourseRepository courseRepository
     ) {

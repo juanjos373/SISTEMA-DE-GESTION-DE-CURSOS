@@ -28,26 +28,49 @@ public class Course {
     @Column(name = "course_id")
     private Long id;
 
-    @Column(name = "code", nullable = false, unique = true, length = 50)
+    @Column(
+            name = "code",
+            nullable = false,
+            unique = true,
+            length = 50
+    )
     private String code;
 
-    @Column(name = "name", nullable = false, length = 150)
+    @Column(
+            name = "name",
+            nullable = false,
+            length = 150
+    )
     private String name;
 
-    @Column(name = "description", length = 500)
+    @Column(
+            name = "description",
+            length = 500
+    )
     private String description;
 
-    @Column(name = "max_capacity", nullable = false)
+    @Column(
+            name = "max_capacity",
+            nullable = false
+    )
     private Integer maxCapacity;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(
+            name = "course_created_at",
+            nullable = false,
+            updatable = false
+    )
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(
+            name = "course_updated_at",
+            nullable = false
+    )
     private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
+
         LocalDateTime now = LocalDateTime.now();
 
         if (createdAt == null) {
@@ -62,5 +85,45 @@ public class Course {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setMaxCapacity(Integer maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public Integer getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

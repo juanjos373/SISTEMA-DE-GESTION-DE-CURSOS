@@ -41,17 +41,35 @@ public class Enrollment {
     private LocalDate enrollmentDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "status", nullable = false)
+    @Column(name = "enrollment_status", nullable = false)
     private EnrollmentStatus status;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(
+            name = "enrollment_created_at",
+            nullable = false,
+            updatable = false
+    )
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(
+            name = "enrollment_updated_at",
+            nullable = false
+    )
     private LocalDateTime updatedAt;
+
+
+    // Constructor para crear una matrícula nueva
+    public Enrollment(Long studentId, Long courseId) {
+        this.studentId = studentId;
+        this.courseId = courseId;
+        this.enrollmentDate = LocalDate.now();
+        this.status = EnrollmentStatus.ACTIVE;
+    }
+
 
     @PrePersist
     protected void onCreate() {
+
         LocalDateTime now = LocalDateTime.now();
 
         if (createdAt == null) {
@@ -70,6 +88,7 @@ public class Enrollment {
             status = EnrollmentStatus.ACTIVE;
         }
     }
+
 
     @PreUpdate
     protected void onUpdate() {

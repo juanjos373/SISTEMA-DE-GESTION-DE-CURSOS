@@ -41,14 +41,22 @@ public class Student {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(
+            name = "student_created_at",
+            nullable = false,
+            updatable = false
+    )
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @Column(
+            name = "student_updated_at",
+            nullable = false
+    )
     private LocalDateTime updatedAt;
 
     @PrePersist
     protected void onCreate() {
+
         LocalDateTime now = LocalDateTime.now();
 
         if (createdAt == null) {
@@ -63,5 +71,45 @@ public class Student {
     @PreUpdate
     protected void onUpdate() {
         updatedAt = LocalDateTime.now();
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public LocalDate getBirthDate() {
+        return birthDate;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }

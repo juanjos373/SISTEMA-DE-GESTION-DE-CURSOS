@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
+public interface InMemoryEnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
     List<Enrollment> findByStudentId(Long studentId);
 

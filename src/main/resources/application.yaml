@@ -4,7 +4,7 @@ spring:
 
   datasource:
     url: jdbc:mysql://localhost:3306/gestion_cursos?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true
-    username: root
+    username: juan_curso
     password: 12345
     driver-class-name: com.mysql.cj.jdbc.Driver
 

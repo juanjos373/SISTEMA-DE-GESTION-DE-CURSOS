@@ -119,14 +119,7 @@ public class EnrollmentMenu {
     }
 
     private int readInt(String prompt) {
-        while (true) {
-            try {
-                System.out.print(prompt);
-                return Integer.parseInt(scanner.nextLine().trim());
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number.");
-            }
-        }
+        return 0;
     }
 
     public void mostrar() {

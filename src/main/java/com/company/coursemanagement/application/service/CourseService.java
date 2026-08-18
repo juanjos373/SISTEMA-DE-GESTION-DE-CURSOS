@@ -4,9 +4,11 @@ import com.company.coursemanagement.application.dto.CourseDTO;
 import com.company.coursemanagement.domain.exception.CourseNotFoundException;
 import com.company.coursemanagement.domain.model.Course;
 import com.company.coursemanagement.domain.repository.CourseRepository;
-import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+@Service
 public class CourseService {
 
     private final CourseRepository courseRepository;
@@ -15,54 +17,74 @@ public class CourseService {
         this.courseRepository = courseRepository;
     }
 
-    public CourseDTO createCourse(String code, String name, String description, Integer maxCapacity) {
+    public CourseDTO createCourse(
+            String code,
+            String name,
+            String description,
+            Integer maxCapacity
+    ) {
         Course course = new Course();
+
         course.setCode(code);
         course.setName(name);
         course.setDescription(description);
         course.setMaxCapacity(maxCapacity);
+
         Course saved = courseRepository.save(course);
+
         return toDTO(saved);
     }
 
     public CourseDTO findById(Long id) {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
+
         return toDTO(course);
     }
 
     public List<CourseDTO> findAll() {
-        return courseRepository.findAll().stream()
+        return courseRepository.findAll()
+                .stream()
                 .map(this::toDTO)
-                .collect(Collectors.toList());
+                .toList();
     }
 
-    public CourseDTO updateCourse(Long id, String code, String name, String description, Integer maxCapacity) {
-        courseRepository.findById(id)
+    public CourseDTO updateCourse(
+            Long id,
+            String code,
+            String name,
+            String description,
+            Integer maxCapacity
+    ) {
+        Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
-        Course course = new Course();
-        course.setId(id);
+
         course.setCode(code);
         course.setName(name);
         course.setDescription(description);
         course.setMaxCapacity(maxCapacity);
-        Course updated = courseRepository.update(course);
+
+        Course updated = courseRepository.save(course);
+
         return toDTO(updated);
     }
 
     public void deleteCourse(Long id) {
-        courseRepository.findById(id)
+        Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new CourseNotFoundException(id));
-        courseRepository.deleteById(id);
+
+        courseRepository.delete(course);
     }
 
     private CourseDTO toDTO(Course course) {
         CourseDTO dto = new CourseDTO();
+
         dto.setId(course.getId());
         dto.setCode(course.getCode());
         dto.setName(course.getName());
         dto.setDescription(course.getDescription());
         dto.setMaxCapacity(course.getMaxCapacity());
+
         return dto;
     }
 }

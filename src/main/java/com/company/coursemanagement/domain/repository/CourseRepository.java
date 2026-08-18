@@ -1,6 +1,7 @@
 package com.company.coursemanagement.domain.repository;
 
 import com.company.coursemanagement.domain.model.Course;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -10,4 +11,6 @@ public interface CourseRepository {
     List<Course> findAll();
     Course update(Course course);
     void deleteById(Long id);
+
+    void delete(Course course);
 }

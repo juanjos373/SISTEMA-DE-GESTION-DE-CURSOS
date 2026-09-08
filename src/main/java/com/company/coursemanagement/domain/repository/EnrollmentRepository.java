@@ -1,4 +1,4 @@
-package com.company.coursemanagement.repository;
+package com.company.coursemanagement.domain.repository;
 
 import com.company.coursemanagement.domain.model.Enrollment;
 import org.springframework.data.jpa.repository.JpaRepository;

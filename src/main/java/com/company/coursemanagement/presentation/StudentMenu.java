@@ -1,7 +1,8 @@
 package com.company.coursemanagement.presentation;
 
 import com.company.coursemanagement.application.service.StudentService;
-import com.company.coursemanagement.application.dto.StudentDTO;
+import com.company.coursemanagement.application.dto.request.CreateStudentRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateStudentDTO;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
@@ -59,7 +60,9 @@ public class StudentMenu {
         String email = readString("Email: ");
         LocalDate birthDate = LocalDate.parse(readString("Fecha de nacimiento (YYYY-MM-DD): "));
         try {
-            StudentDTO dto = studentService.createStudent(firstName, lastName, email, birthDate);
+                CreateStudentDTO dto = studentService.createStudent(
+                    new CreateStudentRequest(firstName, lastName, email, birthDate)
+                );
             System.out.println("Estudiante creado con id: " + dto.getId());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -69,7 +72,7 @@ public class StudentMenu {
     private void findStudentById() {
         Long id = readLong("Digite el id del estudiante: ");
         try {
-            StudentDTO dto = studentService.findById(id);
+            CreateStudentDTO dto = studentService.findById(id);
             System.out.println(dto);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -77,7 +80,7 @@ public class StudentMenu {
     }
 
     private void listAllStudents() {
-        List<StudentDTO> students = studentService.findAll();
+        List<CreateStudentDTO> students = studentService.findAll();
         if (students.isEmpty()) {
             System.out.println("No hay estudiantes encontrados.");
         } else {
@@ -92,7 +95,7 @@ public class StudentMenu {
         String email = readString("Email: ");
         LocalDate birthDate = LocalDate.parse(readString("Fecha de nacimiento (YYYY-MM-DD): "));
         try {
-            StudentDTO dto = studentService.updateStudent(id, firstName, lastName, email, birthDate);
+            CreateStudentDTO dto = studentService.updateStudent(id, firstName, lastName, email, birthDate);
             System.out.println("Estudiante actualizado: " + dto);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

@@ -1,22 +1,22 @@
 package com.company.coursemanagement.application.service.impl;
 
-import com.company.coursemanagement.application.dto.CourseDTO;
+import com.company.coursemanagement.application.dto.response.resources.CreateCourseDTO;
 
 import java.util.List;
 
 public interface CourseServiceInterface {
-    CourseDTO createCourse(
+    CreateCourseDTO createCourse(
             String code,
             String name,
             String description,
             Integer maxCapacity
     );
 
-    CourseDTO findById(Long id);
+    CreateCourseDTO findById(Long id);
 
-    List<CourseDTO> findAll();
+    List<CreateCourseDTO> findAll();
 
-    CourseDTO updateCourse(
+    CreateCourseDTO updateCourse(
             Long id,
             String code,
             String name,

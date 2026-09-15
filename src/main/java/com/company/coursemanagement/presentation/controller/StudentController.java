@@ -1,9 +1,11 @@
 package com.company.coursemanagement.presentation.controller;
 
+import com.company.coursemanagement.application.dto.request.CreateStudentRequest;
 import com.company.coursemanagement.application.service.StudentService;
-import com.company.coursemanagement.application.dto.StudentDTO;
+import com.company.coursemanagement.application.dto.response.resources.CreateStudentDTO;
 import com.company.coursemanagement.domain.exception.BusinessException;
 import com.company.coursemanagement.domain.exception.StudentNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +26,9 @@ public class StudentController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createStudent(
-            @RequestParam String firstName,
-            @RequestParam String lastName,
-            @RequestParam String email,
-            @RequestParam LocalDate birthDate) {
+    public ResponseEntity<?> createStudent(@Valid @RequestBody CreateStudentRequest createStudentRequest) {
         try {
-            StudentDTO created = studentService.createStudent(firstName, lastName, email, birthDate);
+            CreateStudentDTO created = studentService.createStudent(createStudentRequest);
             return ResponseEntity.status(HttpStatus.CREATED).body(created);
         } catch (BusinessException e) {
             Map<String, String> error = new HashMap<>();
@@ -50,7 +48,7 @@ public class StudentController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         try {
-            StudentDTO student = studentService.findById(id);
+            CreateStudentDTO student = studentService.findById(id);
             return ResponseEntity.ok(student);
         } catch (StudentNotFoundException e) {
             Map<String, String> error = new HashMap<>();
@@ -70,7 +68,7 @@ public class StudentController {
     @GetMapping
     public ResponseEntity<?> findAll() {
         try {
-            List<StudentDTO> students = studentService.findAll();
+            List<CreateStudentDTO> students = studentService.findAll();
             return ResponseEntity.ok(students);
         } catch (BusinessException e) {
             Map<String, String> error = new HashMap<>();
@@ -91,7 +89,7 @@ public class StudentController {
             @RequestParam String email,
             @RequestParam LocalDate birthDate) {
         try {
-            StudentDTO updated = studentService.updateStudent(id, firstName, lastName, email, birthDate);
+            CreateStudentDTO updated = studentService.updateStudent(id, firstName, lastName, email, birthDate);
             return ResponseEntity.ok(updated);
         } catch (StudentNotFoundException e) {
             Map<String, String> error = new HashMap<>();

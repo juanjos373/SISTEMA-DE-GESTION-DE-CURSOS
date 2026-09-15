@@ -1,9 +1,11 @@
 package com.company.coursemanagement.presentation.controller;
 
 import com.company.coursemanagement.application.service.CourseService;
-import com.company.coursemanagement.application.dto.CourseDTO;
+import com.company.coursemanagement.application.dto.request.CreateCourseRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateCourseDTO;
 import com.company.coursemanagement.domain.exception.BusinessException;
 import com.company.coursemanagement.domain.exception.CourseNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +25,13 @@ public class CourseController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createCourse(@RequestBody CourseDTO courseDTO) {
+    public ResponseEntity<?> createCourse(@Valid @RequestBody CreateCourseRequest courseRequest) {
         try {
-            CourseDTO created = courseService.createCourse(
-                    courseDTO.getCode(),
-                    courseDTO.getName(),
-                    courseDTO.getDescription(),
-                    courseDTO.getMaxCapacity()
+            CreateCourseDTO created = courseService.createCourse(
+                    courseRequest.getCode(),
+                    courseRequest.getName(),
+                    courseRequest.getDescription(),
+                    courseRequest.getMaxCapacity()
             );
             return ResponseEntity.status(HttpStatus.CREATED).body(created);
         } catch (BusinessException e) {
@@ -50,7 +52,7 @@ public class CourseController {
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id) {
         try {
-            CourseDTO course = courseService.findById(id);
+            CreateCourseDTO course = courseService.findById(id);
             return ResponseEntity.ok(course);
         } catch (CourseNotFoundException e) {
             Map<String, String> error = new HashMap<>();
@@ -70,7 +72,7 @@ public class CourseController {
     @GetMapping
     public ResponseEntity<?> findAll() {
         try {
-            List<CourseDTO> courses = courseService.findAll();
+            List<CreateCourseDTO> courses = courseService.findAll();
             return ResponseEntity.ok(courses);
         } catch (BusinessException e) {
             Map<String, String> error = new HashMap<>();
@@ -84,14 +86,16 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateCourse(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
+    public ResponseEntity<?> updateCourse(
+            @PathVariable Long id,
+            @Valid @RequestBody CreateCourseRequest courseRequest) {
         try {
-            CourseDTO updated = courseService.updateCourse(
+            CreateCourseDTO updated = courseService.updateCourse(
                     id,
-                    courseDTO.getCode(),
-                    courseDTO.getName(),
-                    courseDTO.getDescription(),
-                    courseDTO.getMaxCapacity()
+                    courseRequest.getCode(),
+                    courseRequest.getName(),
+                    courseRequest.getDescription(),
+                    courseRequest.getMaxCapacity()
             );
             return ResponseEntity.ok(updated);
         } catch (CourseNotFoundException e) {

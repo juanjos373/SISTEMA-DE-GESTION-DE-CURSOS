@@ -1,7 +1,7 @@
 package com.company.coursemanagement.presentation;
 
 import com.company.coursemanagement.application.service.CourseService;
-import com.company.coursemanagement.application.dto.CourseDTO;
+import com.company.coursemanagement.application.dto.response.resources.CreateCourseDTO;
 import java.util.List;
 import java.util.Scanner;
 
@@ -58,7 +58,7 @@ public class CourseMenu {
         String description = readString("Descripcion: ");
         Integer maxCapacity = readInt("Capacidad maxima: ");
         try {
-            CourseDTO dto = courseService.createCourse(code, name, description, maxCapacity);
+            CreateCourseDTO dto = courseService.createCourse(code, name, description, maxCapacity);
             System.out.println("Curso creado con id: " + dto.getId());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -68,7 +68,7 @@ public class CourseMenu {
     private void findCourseById() {
         Long id = readLong("Curso id: ");
         try {
-            CourseDTO dto = courseService.findById(id);
+            CreateCourseDTO dto = courseService.findById(id);
             System.out.println(dto);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -76,7 +76,7 @@ public class CourseMenu {
     }
 
     private void listAllCourses() {
-        List<CourseDTO> courses = courseService.findAll();
+        List<CreateCourseDTO> courses = courseService.findAll();
         if (courses.isEmpty()) {
             System.out.println("No hay cursos encontrados.");
         } else {
@@ -91,7 +91,7 @@ public class CourseMenu {
         String description = readString("Descripcion: ");
         Integer maxCapacity = readInt("Capacidad maxima: ");
         try {
-            CourseDTO dto = courseService.updateCourse(id, code, name, description, maxCapacity);
+            CreateCourseDTO dto = courseService.updateCourse(id, code, name, description, maxCapacity);
             System.out.println("Curso actualizado: " + dto);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

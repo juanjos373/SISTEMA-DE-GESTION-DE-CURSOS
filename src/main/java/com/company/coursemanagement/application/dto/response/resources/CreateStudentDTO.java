@@ -1,18 +1,18 @@
-package com.company.coursemanagement.application.dto;
+package com.company.coursemanagement.application.dto.response.resources;
 
 import java.time.LocalDate;
 
-public class StudentDTO {
+public class CreateStudentDTO {
     private Long id;
     private String firstName;
     private String lastName;
     private String email;
     private LocalDate birthDate;
 
-    public StudentDTO() {
+    public CreateStudentDTO() {
     }
 
-    public StudentDTO(Long id, String firstName, String lastName, String email, LocalDate birthDate) {
+    public CreateStudentDTO(Long id, String firstName, String lastName, String email, LocalDate birthDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;

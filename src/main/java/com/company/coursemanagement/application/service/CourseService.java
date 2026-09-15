@@ -1,6 +1,6 @@
 package com.company.coursemanagement.application.service;
 
-import com.company.coursemanagement.application.dto.CourseDTO;
+import com.company.coursemanagement.application.dto.response.resources.CreateCourseDTO;
 import com.company.coursemanagement.application.service.impl.CourseServiceInterface;
 import com.company.coursemanagement.domain.exception.CourseNotFoundException;
 import com.company.coursemanagement.domain.model.Course;
@@ -19,7 +19,7 @@ public class CourseService implements CourseServiceInterface {
     }
 
     @Override
-    public CourseDTO createCourse(
+    public CreateCourseDTO createCourse(
             String code,
             String name,
             String description,
@@ -42,7 +42,7 @@ public class CourseService implements CourseServiceInterface {
     }
 
     @Override
-    public CourseDTO findById(Long id) {
+    public CreateCourseDTO findById(Long id) {
         try {
             Course course = courseRepository.findById(id)
                     .orElseThrow(() -> new CourseNotFoundException(id));
@@ -56,7 +56,7 @@ public class CourseService implements CourseServiceInterface {
     }
 
     @Override
-    public List<CourseDTO> findAll() {
+    public List<CreateCourseDTO> findAll() {
         try {
             return courseRepository.findAll()
                     .stream()
@@ -68,7 +68,7 @@ public class CourseService implements CourseServiceInterface {
     }
 
     @Override
-    public CourseDTO updateCourse(
+    public CreateCourseDTO updateCourse(
             Long id,
             String code,
             String name,
@@ -108,9 +108,9 @@ public class CourseService implements CourseServiceInterface {
         }
     }
 
-    private CourseDTO toDTO(Course course) {
+    private CreateCourseDTO toDTO(Course course) {
 
-        CourseDTO dto = new CourseDTO();
+        CreateCourseDTO dto = new CreateCourseDTO();
 
         dto.setId(course.getId());
         dto.setCode(course.getCode());

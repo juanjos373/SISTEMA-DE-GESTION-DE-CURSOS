@@ -1,28 +1,23 @@
 package com.company.coursemanagement.application.service.impl;
 
-import com.company.coursemanagement.application.dto.StudentDTO;
+import com.company.coursemanagement.application.dto.request.CreateStudentRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateStudentDTO;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface StudentServiceInterface {
-    StudentDTO createStudent(
-            String firstName,
-            String lastName,
-            String email,
-            LocalDate birthDate
-    );
+    CreateStudentDTO createStudent(CreateStudentRequest createStudentRequest);
 
-    StudentDTO findById(Long id);
+    CreateStudentDTO findById(Long id);
 
-    List<StudentDTO> findAll();
+    List<CreateStudentDTO> findAll();
 
-    StudentDTO updateStudent(
+    CreateStudentDTO updateStudent(
             Long id,
             String firstName,
             String lastName,
             String email,
-            LocalDate birthDate
+            java.time.LocalDate birthDate
     );
 
     void deleteStudent(Long id);

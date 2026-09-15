@@ -1,7 +1,8 @@
 package com.company.coursemanagement.presentation;
 
 import com.company.coursemanagement.application.service.EnrollmentService;
-import com.company.coursemanagement.application.dto.EnrollmentDTO;
+import com.company.coursemanagement.application.dto.request.CreateEnrollmentRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateEnrollmentDTO;
 import java.util.List;
 import java.util.Scanner;
 
@@ -56,7 +57,9 @@ public class EnrollmentMenu {
         Long studentId = readLong("id estudiante: ");
         Long courseId = readLong("id curso: ");
         try {
-            EnrollmentDTO dto = enrollmentService.createEnrollment(studentId, courseId);
+                CreateEnrollmentDTO dto = enrollmentService.createEnrollment(
+                    new CreateEnrollmentRequest(studentId, courseId)
+                );
             System.out.println("Matricula creada con id: " + dto.getId());
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -66,7 +69,7 @@ public class EnrollmentMenu {
     private void findEnrollmentById() {
         Long id = readLong("id matricula: ");
         try {
-            EnrollmentDTO dto = enrollmentService.findById(id);
+            CreateEnrollmentDTO dto = enrollmentService.findById(id);
             System.out.println(dto);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -74,7 +77,7 @@ public class EnrollmentMenu {
     }
 
     private void listAllEnrollments() {
-        List<EnrollmentDTO> enrollments = enrollmentService.findAll();
+        List<CreateEnrollmentDTO> enrollments = enrollmentService.findAll();
         if (enrollments.isEmpty()) {
             System.out.println("No hay matriculas encontradas.");
         } else {
@@ -85,7 +88,7 @@ public class EnrollmentMenu {
     private void cancelEnrollment() {
         Long id = readLong("Digite el id de la matricula para cancelar: ");
         try {
-            EnrollmentDTO dto = enrollmentService.cancelEnrollment(id);
+            CreateEnrollmentDTO dto = enrollmentService.cancelEnrollment(id);
             System.out.println("Matricula cancelada: " + dto);
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());

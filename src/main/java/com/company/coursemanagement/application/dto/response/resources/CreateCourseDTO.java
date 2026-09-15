@@ -1,16 +1,16 @@
-package com.company.coursemanagement.application.dto;
+package com.company.coursemanagement.application.dto.response.resources;
 
-public class CourseDTO {
+public class CreateCourseDTO {
     private Long id;
     private String code;
     private String name;
     private String description;
     private Integer maxCapacity;
 
-    public CourseDTO() {
+    public CreateCourseDTO() {
     }
 
-    public CourseDTO(Long id, String code, String name, String description, Integer maxCapacity) {
+    public CreateCourseDTO(Long id, String code, String name, String description, Integer maxCapacity) {
         this.id = id;
         this.code = code;
         this.name = name;

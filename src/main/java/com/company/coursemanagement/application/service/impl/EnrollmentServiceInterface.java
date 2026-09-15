@@ -1,17 +1,18 @@
 package com.company.coursemanagement.application.service.impl;
 
-import com.company.coursemanagement.application.dto.EnrollmentDTO;
+import com.company.coursemanagement.application.dto.request.CreateEnrollmentRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateEnrollmentDTO;
 
 import java.util.List;
 
 public interface EnrollmentServiceInterface {
-    EnrollmentDTO createEnrollment(Long studentId, Long courseId);
+    CreateEnrollmentDTO createEnrollment(CreateEnrollmentRequest createEnrollmentRequest);
 
-    EnrollmentDTO findById(Long id);
+    CreateEnrollmentDTO findById(Long id);
 
-    List<EnrollmentDTO> findAll();
+    List<CreateEnrollmentDTO> findAll();
 
-    EnrollmentDTO cancelEnrollment(Long id);
+    CreateEnrollmentDTO cancelEnrollment(Long id);
 
     void deleteEnrollment(Long id);
 }

@@ -1,6 +1,7 @@
 package com.company.coursemanagement.application.service;
 
-import com.company.coursemanagement.application.dto.StudentDTO;
+import com.company.coursemanagement.application.dto.request.CreateStudentRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateStudentDTO;
 import com.company.coursemanagement.application.service.impl.StudentServiceInterface;
 import com.company.coursemanagement.domain.exception.StudentNotFoundException;
 import com.company.coursemanagement.domain.model.Student;
@@ -20,19 +21,14 @@ public class StudentService implements StudentServiceInterface {
     }
 
     @Override
-    public StudentDTO createStudent(
-            String firstName,
-            String lastName,
-            String email,
-            LocalDate birthDate
-    ) {
+    public CreateStudentDTO createStudent(CreateStudentRequest createStudentRequest) {
         try {
             Student student = new Student();
 
-            student.setFirstName(firstName);
-            student.setLastName(lastName);
-            student.setEmail(email);
-            student.setBirthDate(birthDate);
+            student.setFirstName(createStudentRequest.getFirstName());
+            student.setLastName(createStudentRequest.getLastName());
+            student.setEmail(createStudentRequest.getEmail());
+            student.setBirthDate(createStudentRequest.getBirthDate());
 
             Student saved = studentRepository.save(student);
 
@@ -43,7 +39,7 @@ public class StudentService implements StudentServiceInterface {
     }
 
     @Override
-    public StudentDTO findById(Long id) {
+    public CreateStudentDTO findById(Long id) {
         try {
             Student student = studentRepository.findById(id)
                     .orElseThrow(() -> new StudentNotFoundException(id));
@@ -57,7 +53,7 @@ public class StudentService implements StudentServiceInterface {
     }
 
     @Override
-    public List<StudentDTO> findAll() {
+    public List<CreateStudentDTO> findAll() {
         try {
             return studentRepository.findAll()
                     .stream()
@@ -69,7 +65,7 @@ public class StudentService implements StudentServiceInterface {
     }
 
     @Override
-    public StudentDTO updateStudent(
+    public CreateStudentDTO updateStudent(
             Long id,
             String firstName,
             String lastName,
@@ -109,9 +105,9 @@ public class StudentService implements StudentServiceInterface {
         }
     }
 
-    private StudentDTO toDTO(Student student) {
+    private CreateStudentDTO toDTO(Student student) {
 
-        StudentDTO dto = new StudentDTO();
+        CreateStudentDTO dto = new CreateStudentDTO();
 
         dto.setId(student.getId());
         dto.setFirstName(student.getFirstName());

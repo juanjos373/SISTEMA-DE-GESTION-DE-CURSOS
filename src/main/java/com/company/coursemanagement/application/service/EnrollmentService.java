@@ -1,6 +1,7 @@
 package com.company.coursemanagement.application.service;
 
-import com.company.coursemanagement.application.dto.EnrollmentDTO;
+import com.company.coursemanagement.application.dto.request.CreateEnrollmentRequest;
+import com.company.coursemanagement.application.dto.response.resources.CreateEnrollmentDTO;
 import com.company.coursemanagement.application.service.impl.EnrollmentServiceInterface;
 import com.company.coursemanagement.domain.exception.BusinessException;
 import com.company.coursemanagement.domain.exception.CourseNotFoundException;
@@ -34,18 +35,18 @@ public class EnrollmentService implements EnrollmentServiceInterface {
     }
 
     @Override
-    public EnrollmentDTO createEnrollment(Long studentId, Long courseId) {
+    public CreateEnrollmentDTO createEnrollment(CreateEnrollmentRequest createEnrollmentRequest) {
         try {
-            studentRepository.findById(studentId)
-                    .orElseThrow(() -> new StudentNotFoundException(studentId));
+            studentRepository.findById(createEnrollmentRequest.getStudentId())
+                    .orElseThrow(() -> new StudentNotFoundException(createEnrollmentRequest.getStudentId()));
 
-            courseRepository.findById(courseId)
-                    .orElseThrow(() -> new CourseNotFoundException(courseId));
+            courseRepository.findById(createEnrollmentRequest.getCourseId())
+                    .orElseThrow(() -> new CourseNotFoundException(createEnrollmentRequest.getCourseId()));
 
             Enrollment enrollment = new Enrollment();
 
-            enrollment.setStudentId(studentId);
-            enrollment.setCourseId(courseId);
+            enrollment.setStudentId(createEnrollmentRequest.getStudentId());
+            enrollment.setCourseId(createEnrollmentRequest.getCourseId());
             enrollment.setEnrollmentDate(LocalDate.now());
             enrollment.setStatus(EnrollmentStatus.ACTIVE);
 
@@ -62,7 +63,7 @@ public class EnrollmentService implements EnrollmentServiceInterface {
     }
 
     @Override
-    public EnrollmentDTO findById(Long id) {
+    public CreateEnrollmentDTO findById(Long id) {
         try {
             Enrollment enrollment = enrollmentRepository.findById(id)
                     .orElseThrow(() -> new EnrollmentNotFoundException(id));
@@ -76,7 +77,7 @@ public class EnrollmentService implements EnrollmentServiceInterface {
     }
 
     @Override
-    public List<EnrollmentDTO> findAll() {
+    public List<CreateEnrollmentDTO> findAll() {
         try {
             return enrollmentRepository.findAll()
                     .stream()
@@ -88,7 +89,7 @@ public class EnrollmentService implements EnrollmentServiceInterface {
     }
 
     @Override
-    public EnrollmentDTO cancelEnrollment(Long id) {
+    public CreateEnrollmentDTO cancelEnrollment(Long id) {
         try {
             Enrollment enrollment = enrollmentRepository.findById(id)
                     .orElseThrow(() -> new EnrollmentNotFoundException(id));
@@ -127,9 +128,9 @@ public class EnrollmentService implements EnrollmentServiceInterface {
         }
     }
 
-    private EnrollmentDTO toDTO(Enrollment enrollment) {
+    private CreateEnrollmentDTO toDTO(Enrollment enrollment) {
 
-        EnrollmentDTO dto = new EnrollmentDTO();
+        CreateEnrollmentDTO dto = new CreateEnrollmentDTO();
 
         dto.setId(enrollment.getId());
         dto.setStudentId(enrollment.getStudentId());
